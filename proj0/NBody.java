@@ -33,7 +33,7 @@ public class NBody{
 		double dt = Double.parseDouble(args[1]);
 		String filename = args[2];
 		double radius = NBody.readRadius(filename);
-		Planet[] planets = NBody.readBodies(filename); 
+		Planet[] planets = NBody.readPlanets(filename); 
 
 		StdDraw.enableDoubleBuffering();
 		for(int i=0;i<T;i+=dt){
