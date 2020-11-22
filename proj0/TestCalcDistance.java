@@ -20,24 +20,29 @@ public class TestCalcDistance {
      *  @param  eps         Tolerance for the double comparison.
      */
     private static void checkEquals(double actual, double expected, String label, double eps) {
-        if (Math.abs(expected - actual) <= eps * Math.max(expected, actual)) {
-            System.out.println("PASS: " + label + ": Expected " + expected + " and you gave " + actual);
+        if (Double.isNaN(actual) || Double.isInfinite(actual)) {
+            System.out.println("FAIL: " + label
+                    + ": Expected " + expected + " and you gave " + actual);
+        } else if (Math.abs(expected - actual) <= eps * Math.max(expected, actual)) {
+            System.out.println("PASS: " + label
+                    + ": Expected " + expected + " and you gave " + actual);
         } else {
-            System.out.println("FAIL: " + label + ": Expected " + expected + " and you gave " + actual);
+            System.out.println("FAIL: " + label
+                    + ": Expected " + expected + " and you gave " + actual);
         }
     }
 
     /**
-     *  Checks the Planet class to make sure calcDistance works.
+     *  Checks the Body class to make sure calcDistance works.
      */
     private static void checkCalcDistance() {
         System.out.println("Checking calcDistance...");
 
-        Planet p1 = new Planet(1.0, 1.0, 3.0, 4.0, 5.0, "jupiter.gif");
-        Planet p2 = new Planet(2.0, 1.0, 3.0, 4.0, 5.0, "jupiter.gif");
-        Planet p3 = new Planet(4.0, 5.0, 3.0, 4.0, 5.0, "jupiter.gif");
+        Body b1 = new Body(1.0, 0.0, -999, -999, 7e5, "samh.gif");
+        Body b2 = new Body(3.0, 3.0, -999, -999, 8e5, "aegir.gif");
+        Body b3 = new Body(5.0, -3.0, -999, -999, 9e6, "rocinante.gif");
 
-        checkEquals(p1.calcDistance(p2), 1.0, "calcDistance()", 0.01);
-        checkEquals(p1.calcDistance(p3), 5.0, "calcDistance()", 0.01);
+        checkEquals(b1.calcDistance(b2), Math.sqrt(4.0 + 9.0), "calcDistance()", 0.01);
+        checkEquals(b1.calcDistance(b3), Math.sqrt(16.0 + 9.0), "calcDistance()", 0.01);
     }
 }
