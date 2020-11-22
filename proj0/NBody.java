@@ -10,7 +10,7 @@ public class NBody{
 		return radiusOfUniverse;
 	}
 
-	public static Planet[] readBodies(String filename){
+	public static Planet[] readPlanets(String filename){
 		In in = new In(filename);
 		int numOfPlanets = in.readInt();
 		double radiusOfUniverse = in.readDouble();
