@@ -1,9 +1,7 @@
-import java.util.Arrays;
-
 public class ArrayDeque<T> {
     private static int initialCapacity = 8;
     private static int refactor = 2;
-    private static double usageRatio = 0.5;
+    private static double usageRatio = 0.25;
     private static double recommendUsageRatio = 0.8;
     private int size;
     private T[] items;
@@ -19,13 +17,13 @@ public class ArrayDeque<T> {
         nextLast = 0;
     }
 
-    public ArrayDeque(int capacity, int size, T[] items, int nf, int nl) {
-        this.capacity = capacity;
-        this.size = size;
-        this.items = items;
-        this.nextFirst = nf;
-        this.nextLast = nl;
-    }
+//    public ArrayDeque(int capacity, int size, T[] items, int nf, int nl) {
+//        this.capacity = capacity;
+//        this.size = size;
+//        this.items = items;
+//        this.nextFirst = nf;
+//        this.nextLast = nl;
+//    }
 
     private int minusOne(int index) {
         return (index - 1 + capacity) % capacity;
@@ -75,9 +73,9 @@ public class ArrayDeque<T> {
         return size;
     }
 
-    public int getCapacity() {
-        return capacity;
-    }
+//    public int getCapacity() {
+//        return capacity;
+//    }
 
     /**
      * Prints non-empty elements in array items.
@@ -85,7 +83,8 @@ public class ArrayDeque<T> {
     public void printDeque() {
         int cur = plusOne(nextFirst);
         if (size == capacity) {
-            //special case, when array is full, nextLast==onePlus(nextFirst), iterate: onePlus(nextFirst)-->nextFirst
+            //special case, when array is full, nextLast==onePlus(nextFirst),
+            //iterate: onePlus(nextFirst)-->nextFirst
             while (cur != nextFirst) {
                 System.out.print(items[cur] + " ");
                 cur = plusOne(cur);
@@ -104,27 +103,27 @@ public class ArrayDeque<T> {
     /**
      * Prints all elements in array items.
      */
-    public void printAll() {
-        for (int i = 0; i <= capacity - 1; i++) {
-            System.out.print(items[i] + " ");
-        }
-        System.out.println();
-    }
+//    public void printAll() {
+//        for (int i = 0; i <= capacity - 1; i++) {
+//            System.out.print(items[i] + " ");
+//        }
+//        System.out.println();
+//    }
 
     private void checkDownsize() {
-        double cur_ratio = size / capacity;
-        if (cur_ratio < usageRatio) {
+        double curRatio = size / capacity;
+        if (curRatio < usageRatio) {
             //when usage <50%, need to downsize to 80% original capacity
-            int recommend_capacity = (int) (size / recommendUsageRatio);
+            int recommendCapacity = (int) (size / recommendUsageRatio);
 
-            T[] tmp = (T[]) new Object[recommend_capacity];
+            T[] tmp = (T[]) new Object[recommendCapacity];
             int cur = plusOne(nextFirst);
             for (int i = 0; i < size; i++) {
                 tmp[i] = items[cur];
                 cur = plusOne(cur);
             }
             this.items = tmp;
-            this.capacity = recommend_capacity;
+            this.capacity = recommendCapacity;
             this.nextFirst = capacity - 1;
             this.nextLast = size;
         }
