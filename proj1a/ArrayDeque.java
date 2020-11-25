@@ -1,5 +1,7 @@
 public class ArrayDeque<T> {
+
     private static int initialCapacity = 8;
+    private static int mCapacity = 8;
     private static int refactor = 2;
     private static double usageRatio = 0.25;
     private static double recommendUsageRatio = 0.8;
@@ -33,8 +35,8 @@ public class ArrayDeque<T> {
         return (index + 1) % capacity;
     }
 
-    private void resize(int capacity) {
-        T[] tmp = (T[]) new Object[capacity];
+    private void resize(int cap) {
+        T[] tmp = (T[]) new Object[cap];
         //copy array: nextLast->nextFirst to new array: 0-size
         int cur = nextLast;
         for (int i = 0; i < size; i++) {
@@ -42,7 +44,7 @@ public class ArrayDeque<T> {
             cur = plusOne(cur);
         }
         this.items = tmp;
-        this.capacity = capacity;
+        this.capacity = cap;
         this.nextFirst = capacity - 1;
         this.nextLast = size;
     }
@@ -109,10 +111,9 @@ public class ArrayDeque<T> {
 //        }
 //        System.out.println();
 //    }
-
     private void checkDownsize() {
         double curRatio = size / capacity;
-        if (curRatio < usageRatio) {
+        if (capacity >= mCapacity && curRatio < usageRatio) {
             //when usage <50%, need to downsize to 80% original capacity
             int recommendCapacity = (int) (size / recommendUsageRatio);
 
@@ -168,15 +169,49 @@ public class ArrayDeque<T> {
     }
 
 //    public static void main(String[] args) {
-//        String[] items =new String[100];
-//        Arrays.fill(items,0,50, "a");
-//        items[0] ="b";
-//        ArrayDeque<String> q = new ArrayDeque<String>(100,  50, items, 99, 50);
-//        System.out.println(" capacity: " + q.capacity);
-//        System.out.println("   size: " + q.size());
+//        ArrayDeque<Integer> q = new ArrayDeque<>();
+//        for (int i = 0; i < 10; i++) {
+//            q.addFirst(i);
+//        }
+//        q.printDeque();
+//        q.addFirst(666);
+//        System.out.println("removeLast: " + q.removeLast());
+//        q.printDeque();
+//        System.out.println("removeFirst: " + q.removeFirst());
+//        q.printDeque();
+//        System.out.println("removeLast: " + q.removeLast());
+//        q.printDeque();
+//        System.out.println("removeLast: " + q.removeLast());
+//        q.printDeque();
+//        System.out.println("removeLast: " + q.removeLast());
+//        q.printDeque();
+//        System.out.println("removeLast: " + q.removeLast());
+//        q.printDeque();
+//        System.out.println("removeLast: " + q.removeLast());
+//        q.printDeque();
+//        System.out.println("removeLast: " + q.removeLast());
+//        q.printDeque();
+//        System.out.println("removeLast: " + q.removeLast());
+//        q.printDeque();
+//        System.out.println("removeLast: " + q.removeLast());
 //        System.out.println("nextFirst: " + q.nextFirst);
 //        System.out.println("nextLast: " + q.nextLast);
+//        System.out.println("   size: " + q.size());
+//        System.out.println(" capacity: " + q.capacity);
 //        q.printDeque();
+//        System.out.println("removeLast: " + q.removeLast());
+//        System.out.println("nextFirst: " + q.nextFirst);
+//        System.out.println("nextLast: " + q.nextLast);
+//        System.out.println("   size: " + q.size());
+//        System.out.println(" capacity: " + q.capacity);
+//        q.printDeque();
+//        System.out.println("removeFirst: " + q.removeFirst());
+//        System.out.println("nextFirst: " + q.nextFirst);
+//        System.out.println("nextLast: " + q.nextLast);
+//        System.out.println("   size: " + q.size());
+//        System.out.println(" capacity: " + q.capacity);
+//        q.printDeque();
+//
 //
 //        System.out.println("removeFirst: " + q.removeFirst());
 //        System.out.println("   size: " + q.size());
@@ -184,7 +219,7 @@ public class ArrayDeque<T> {
 //        System.out.println("nextFirst: " + q.nextFirst);
 //        System.out.println("nextLast: " + q.nextLast);
 //        q.printDeque();
-
+//
 //        ArrayDeque<String> q = new ArrayDeque<>();
 //        System.out.println("isEmpty: " + q.isEmpty());
 //        System.out.println("   size: " + q.size());
@@ -289,7 +324,7 @@ public class ArrayDeque<T> {
 //        System.out.println("get[4]: " + q.get(4));
 //        q.printDeque();
 //        System.out.println();
-
+//
 //    }
 
 }
