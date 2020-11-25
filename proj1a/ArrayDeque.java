@@ -115,8 +115,8 @@ public class ArrayDeque<T> {
         double curRatio = size / capacity;
         if (capacity >= mCapacity && curRatio < usageRatio) {
             //when usage <50%, need to downsize to 80% original capacity
-            int recommendCapacity = (int) (size / recommendUsageRatio);
-
+            int recommendCapacity = (int) (size / recommendUsageRatio) + 1;
+//System.out.println("recommendCapacity = "+ recommendCapacity);
             T[] tmp = (T[]) new Object[recommendCapacity];
             int cur = plusOne(nextFirst);
             for (int i = 0; i < size; i++) {
@@ -170,48 +170,28 @@ public class ArrayDeque<T> {
 
 //    public static void main(String[] args) {
 //        ArrayDeque<Integer> q = new ArrayDeque<>();
-//        for (int i = 0; i < 10; i++) {
+//        for (int i = 0; i < 500; i++) {
 //            q.addFirst(i);
 //        }
 //        q.printDeque();
-//        q.addFirst(666);
-//        System.out.println("removeLast: " + q.removeLast());
-//        q.printDeque();
-//        System.out.println("removeFirst: " + q.removeFirst());
-//        q.printDeque();
-//        System.out.println("removeLast: " + q.removeLast());
-//        q.printDeque();
-//        System.out.println("removeLast: " + q.removeLast());
-//        q.printDeque();
-//        System.out.println("removeLast: " + q.removeLast());
-//        q.printDeque();
-//        System.out.println("removeLast: " + q.removeLast());
-//        q.printDeque();
-//        System.out.println("removeLast: " + q.removeLast());
-//        q.printDeque();
-//        System.out.println("removeLast: " + q.removeLast());
-//        q.printDeque();
-//        System.out.println("removeLast: " + q.removeLast());
-//        q.printDeque();
-//        System.out.println("removeLast: " + q.removeLast());
+//        System.out.println("isEmpty: " + q.isEmpty());
 //        System.out.println("nextFirst: " + q.nextFirst);
 //        System.out.println("nextLast: " + q.nextLast);
 //        System.out.println("   size: " + q.size());
 //        System.out.println(" capacity: " + q.capacity);
-//        q.printDeque();
-//        System.out.println("removeLast: " + q.removeLast());
-//        System.out.println("nextFirst: " + q.nextFirst);
-//        System.out.println("nextLast: " + q.nextLast);
-//        System.out.println("   size: " + q.size());
-//        System.out.println(" capacity: " + q.capacity);
-//        q.printDeque();
-//        System.out.println("removeFirst: " + q.removeFirst());
-//        System.out.println("nextFirst: " + q.nextFirst);
-//        System.out.println("nextLast: " + q.nextLast);
-//        System.out.println("   size: " + q.size());
-//        System.out.println(" capacity: " + q.capacity);
-//        q.printDeque();
 //
+//        for (int i = 0; i < 500; i++) {
+//            q.removeFirst();
+//           // System.out.println("removeFirst: " + q.removeFirst());
+//        }
+//        q.removeFirst();
+//        System.out.println("isEmpty: " + q.isEmpty());
+//        System.out.println("nextFirst: " + q.nextFirst);
+//        System.out.println("nextLast: " + q.nextLast);
+//        System.out.println("   size: " + q.size());
+//        System.out.println(" capacity: " + q.capacity);
+//        q.printDeque();
+
 //
 //        System.out.println("removeFirst: " + q.removeFirst());
 //        System.out.println("   size: " + q.size());
