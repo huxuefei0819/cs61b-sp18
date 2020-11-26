@@ -1,7 +1,7 @@
 public class ArrayDeque<T> {
 
-    private static int initialCapacity = 8;
-    private static int mCapacity = 8;
+    private static int initialCapacity = 3;
+    private static int mCapacity = 3;
     private static int refactor = 2;
     private static double usageRatio = 0.25;
     private static double recommendUsageRatio = 0.8;
@@ -37,12 +37,15 @@ public class ArrayDeque<T> {
 
     private void resize(int cap) {
         T[] tmp = (T[]) new Object[cap];
-        //copy array: nextLast->nextFirst to new array: 0-size
-        int cur = nextLast;
-        for (int i = 0; i < size; i++) {
-            tmp[i] = items[cur];
-            cur = plusOne(cur);
-        }
+        //solution1: copy array: nextLast->nextFirst to new array: 0-size
+//        int cur = nextLast;
+//        for (int i = 0; i < size; i++) {
+//            tmp[i] = items[cur];
+//            cur = plusOne(cur);
+//        }
+        //solution2: copy two parts: nextLast->end of array + 0->nextFirst
+        System.arraycopy(items, nextLast, tmp, 0, size - nextLast);
+        System.arraycopy(items, 0, tmp, size - nextLast, nextFirst + 1);
         this.items = tmp;
         this.capacity = cap;
         this.nextFirst = capacity - 1;
@@ -118,11 +121,21 @@ public class ArrayDeque<T> {
             int recommendCapacity = (int) (size / recommendUsageRatio) + 1;
 //System.out.println("recommendCapacity = "+ recommendCapacity);
             T[] tmp = (T[]) new Object[recommendCapacity];
-            int cur = plusOne(nextFirst);
-            for (int i = 0; i < size; i++) {
-                tmp[i] = items[cur];
-                cur = plusOne(cur);
+            //solution1: copy arr from plusOne(nextFirst), with size number of elements
+//            int cur = plusOne(nextFirst);
+//            for (int i = 0; i < size; i++) {
+//                tmp[i] = items[cur];
+//                cur = plusOne(cur);
+//            }
+            //solution2: when nextFirst<nextLast, copy array plusOne(nextFirst)->minusOne(nextLast)
+            if (plusOne(nextFirst) < minusOne(nextLast)) {
+                System.arraycopy(items, plusOne(nextFirst), tmp, 0, size);
+            } else {
+                //copy array plusOne(nextFirst)->end of array + 0->minusOne(nextLast)
+                System.arraycopy(items, plusOne(nextFirst), tmp, 0, capacity - plusOne(nextFirst));
+                System.arraycopy(items, 0, tmp, capacity - plusOne(nextFirst), nextLast);
             }
+
             this.items = tmp;
             this.capacity = recommendCapacity;
             this.nextFirst = capacity - 1;
@@ -170,7 +183,7 @@ public class ArrayDeque<T> {
 
 //    public static void main(String[] args) {
 //        ArrayDeque<Integer> q = new ArrayDeque<>();
-//        for (int i = 0; i < 500; i++) {
+//        for (int i = 0; i < 18; i++) {
 //            q.addFirst(i);
 //        }
 //        q.printDeque();
@@ -179,131 +192,17 @@ public class ArrayDeque<T> {
 //        System.out.println("nextLast: " + q.nextLast);
 //        System.out.println("   size: " + q.size());
 //        System.out.println(" capacity: " + q.capacity);
-//
-//        for (int i = 0; i < 500; i++) {
-//            q.removeFirst();
-//           // System.out.println("removeFirst: " + q.removeFirst());
+//        System.out.println("--------------------------");
+//        for (int i = 0; i < 14; i++) {
+//            //q.removeFirst();
+//            System.out.println("removeFirst: " + q.removeFirst());
 //        }
-//        q.removeFirst();
 //        System.out.println("isEmpty: " + q.isEmpty());
 //        System.out.println("nextFirst: " + q.nextFirst);
 //        System.out.println("nextLast: " + q.nextLast);
 //        System.out.println("   size: " + q.size());
 //        System.out.println(" capacity: " + q.capacity);
 //        q.printDeque();
-
-//
-//        System.out.println("removeFirst: " + q.removeFirst());
-//        System.out.println("   size: " + q.size());
-//        System.out.println(" capacity: " + q.capacity);
-//        System.out.println("nextFirst: " + q.nextFirst);
-//        System.out.println("nextLast: " + q.nextLast);
-//        q.printDeque();
-//
-//        ArrayDeque<String> q = new ArrayDeque<>();
-//        System.out.println("isEmpty: " + q.isEmpty());
-//        System.out.println("   size: " + q.size());
-//        System.out.println(" capacity: " + q.capacity);
-//        System.out.println("nextFirst: " + q.nextFirst);
-//        System.out.println("nextLast: " + q.nextLast);
-//        System.out.println("get[0]: " + q.get(0));
-//        System.out.println("get[1]: " + q.get(1));
-//        System.out.println("get[2]: " + q.get(2));
-//        q.printDeque();
-//        System.out.println();
-//
-//        q.addFirst("666");
-//        System.out.println("isEmpty: " + q.isEmpty());
-//        System.out.println("   size: " + q.size());
-//        System.out.println(" capacity: " + q.capacity);
-//        System.out.println("nextFirst: " + q.nextFirst);
-//        System.out.println("nextLast: " + q.nextLast);
-//        System.out.println("get[0]: " + q.get(0));
-//        System.out.println("get[1]: " + q.get(1));
-//        System.out.println("get[2]: " + q.get(2));
-//        q.printDeque();
-//        System.out.println();
-//
-//        q.addLast("999");
-//        System.out.println("isEmpty: " + q.isEmpty());
-//        System.out.println("   size: " + q.size());
-//        System.out.println(" capacity: " + q.capacity);
-//        System.out.println("nextFirst: " + q.nextFirst);
-//        System.out.println("nextLast: " + q.nextLast);
-//        System.out.println("get[0]: " + q.get(0));
-//        System.out.println("get[1]: " + q.get(1));
-//        System.out.println("get[2]: " + q.get(2));
-//        q.printDeque();
-//        System.out.println();
-//
-//        q.addLast("777");
-//        System.out.println("isEmpty: " + q.isEmpty());
-//        System.out.println("   size: " + q.size());
-//        System.out.println(" capacity: " + q.capacity);
-//        System.out.println("nextFirst: " + q.nextFirst);
-//        System.out.println("nextLast: " + q.nextLast);
-//        System.out.println("get[0]: " + q.get(0));
-//        System.out.println("get[1]: " + q.get(1));
-//        System.out.println("get[2]: " + q.get(2));
-//        q.printDeque();
-//        System.out.println();
-//
-//        q.addLast("111");
-//        System.out.println("isEmpty: " + q.isEmpty());
-//        System.out.println("   size: " + q.size());
-//        System.out.println(" capacity: " + q.capacity);
-//        System.out.println("nextFirst: " + q.nextFirst);
-//        System.out.println("nextLast: " + q.nextLast);
-//        System.out.println("get[0]: " + q.get(0));
-//        System.out.println("get[1]: " + q.get(1));
-//        System.out.println("get[2]: " + q.get(2));
-//        System.out.println("get[3]: " + q.get(3));
-//        System.out.println("get[4]: " + q.get(4));
-//        q.printDeque();
-//        System.out.println();
-//
-//        q.addLast("222");
-//        System.out.println("isEmpty: " + q.isEmpty());
-//        System.out.println("   size: " + q.size());
-//        System.out.println(" capacity: " + q.capacity);
-//        System.out.println("nextFirst: " + q.nextFirst);
-//        System.out.println("nextLast: " + q.nextLast);
-//        System.out.println("get[0]: " + q.get(0));
-//        System.out.println("get[1]: " + q.get(1));
-//        System.out.println("get[2]: " + q.get(2));
-//        System.out.println("get[3]: " + q.get(3));
-//        System.out.println("get[4]: " + q.get(4));
-//        q.printDeque();
-//        System.out.println();
-//
-//        System.out.println("removeFirst: " + q.removeFirst());
-//        System.out.println("isEmpty: " + q.isEmpty());
-//        System.out.println("   size: " + q.size());
-//        System.out.println(" capacity: " + q.capacity);
-//        System.out.println("nextFirst: " + q.nextFirst);
-//        System.out.println("nextLast: " + q.nextLast);
-//        System.out.println("get[0]: " + q.get(0));
-//        System.out.println("get[1]: " + q.get(1));
-//        System.out.println("get[2]: " + q.get(2));
-//        System.out.println("get[3]: " + q.get(3));
-//        System.out.println("get[4]: " + q.get(4));
-//        q.printDeque();
-//        System.out.println();
-//
-//
-//        System.out.println("removeLast: " + q.removeLast());
-//        System.out.println("isEmpty: " + q.isEmpty());
-//        System.out.println("   size: " + q.size());
-//        System.out.println(" capacity: " + q.capacity);
-//        System.out.println("nextFirst: " + q.nextFirst);
-//        System.out.println("nextLast: " + q.nextLast);
-//        System.out.println("get[0]: " + q.get(0));
-//        System.out.println("get[1]: " + q.get(1));
-//        System.out.println("get[2]: " + q.get(2));
-//        System.out.println("get[3]: " + q.get(3));
-//        System.out.println("get[4]: " + q.get(4));
-//        q.printDeque();
-//        System.out.println();
 //
 //    }
 
