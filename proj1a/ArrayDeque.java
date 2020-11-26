@@ -19,14 +19,6 @@ public class ArrayDeque<T> {
         nextLast = 0;
     }
 
-//    public ArrayDeque(int capacity, int size, T[] items, int nf, int nl) {
-//        this.capacity = capacity;
-//        this.size = size;
-//        this.items = items;
-//        this.nextFirst = nf;
-//        this.nextLast = nl;
-//    }
-
     private int minusOne(int index) {
         return (index - 1 + capacity) % capacity;
     }
@@ -37,15 +29,11 @@ public class ArrayDeque<T> {
 
     private void resize(int cap) {
         T[] tmp = (T[]) new Object[cap];
-        //solution1: copy array: nextLast->nextFirst to new array: 0-size
-//        int cur = nextLast;
-//        for (int i = 0; i < size; i++) {
-//            tmp[i] = items[cur];
-//            cur = plusOne(cur);
-//        }
-        //solution2: copy two parts: nextLast->end of array + 0->nextFirst
-        System.arraycopy(items, nextLast, tmp, 0, size - nextLast);
-        System.arraycopy(items, 0, tmp, size - nextLast, nextFirst + 1);
+        int cur = nextLast;
+        for (int i = 0; i < size; i++) {
+            tmp[i] = items[cur];
+            cur = plusOne(cur);
+        }
         this.items = tmp;
         this.capacity = cap;
         this.nextFirst = capacity - 1;
@@ -78,13 +66,6 @@ public class ArrayDeque<T> {
         return size;
     }
 
-//    public int getCapacity() {
-//        return capacity;
-//    }
-
-    /**
-     * Prints non-empty elements in array items.
-     */
     public void printDeque() {
         int cur = plusOne(nextFirst);
         if (size == capacity) {
@@ -105,37 +86,16 @@ public class ArrayDeque<T> {
         System.out.println();
     }
 
-    /**
-     * Prints all elements in array items.
-     */
-//    public void printAll() {
-//        for (int i = 0; i <= capacity - 1; i++) {
-//            System.out.print(items[i] + " ");
-//        }
-//        System.out.println();
-//    }
     private void checkDownsize() {
         double curRatio = size / capacity;
         if (capacity >= mCapacity && curRatio < usageRatio) {
-            //when usage <50%, need to downsize to 80% original capacity
             int recommendCapacity = (int) (size / recommendUsageRatio) + 1;
-//System.out.println("recommendCapacity = "+ recommendCapacity);
             T[] tmp = (T[]) new Object[recommendCapacity];
-            //solution1: copy arr from plusOne(nextFirst), with size number of elements
-//            int cur = plusOne(nextFirst);
-//            for (int i = 0; i < size; i++) {
-//                tmp[i] = items[cur];
-//                cur = plusOne(cur);
-//            }
-            //solution2: when nextFirst<nextLast, copy array plusOne(nextFirst)->minusOne(nextLast)
-            if (plusOne(nextFirst) < minusOne(nextLast)) {
-                System.arraycopy(items, plusOne(nextFirst), tmp, 0, size);
-            } else {
-                //copy array plusOne(nextFirst)->end of array + 0->minusOne(nextLast)
-                System.arraycopy(items, plusOne(nextFirst), tmp, 0, capacity - plusOne(nextFirst));
-                System.arraycopy(items, 0, tmp, capacity - plusOne(nextFirst), nextLast);
+            int cur = plusOne(nextFirst);
+            for (int i = 0; i < size; i++) {
+                tmp[i] = items[cur];
+                cur = plusOne(cur);
             }
-
             this.items = tmp;
             this.capacity = recommendCapacity;
             this.nextFirst = capacity - 1;
@@ -203,7 +163,6 @@ public class ArrayDeque<T> {
 //        System.out.println("   size: " + q.size());
 //        System.out.println(" capacity: " + q.capacity);
 //        q.printDeque();
-//
 //    }
 
 }
