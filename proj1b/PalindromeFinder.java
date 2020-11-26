@@ -43,6 +43,7 @@ public class PalindromeFinder {
             }
 
         }
-        System.out.println(maxN + " has the most palindromes in English. And the count is " + maxCount);
+        System.out.println(maxN + " has the most palindromes in English. " +
+                "And the count is " + maxCount);
     }
 }
