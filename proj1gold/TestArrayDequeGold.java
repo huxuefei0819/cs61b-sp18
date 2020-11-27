@@ -4,7 +4,7 @@ import org.junit.Test;
 
 public class TestArrayDequeGold {
     @Test
-    public void test() {
+    public void test1() {
         StudentArrayDeque<Integer> sad1 = new StudentArrayDeque<>();
         ArrayDequeSolution<Integer> ads1 = new ArrayDequeSolution<>();
         int size = 0;
