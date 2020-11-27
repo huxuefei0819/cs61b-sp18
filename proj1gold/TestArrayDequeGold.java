@@ -13,7 +13,7 @@ public class TestArrayDequeGold {
         ArrayDequeSolution<Integer> ads1 = new ArrayDequeSolution<>();
         int size = 0;
         String message = "";
-        for (int i = 0; i < 500; i += 1) {
+        for (int i = 0; i < 2000; i += 1) {
             double numberBetweenZeroAndOne = StdRandom.uniform();
 
             if (numberBetweenZeroAndOne < 0.25) {
