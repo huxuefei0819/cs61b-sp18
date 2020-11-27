@@ -3,12 +3,8 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class TestArrayDequeGold {
-    public static void main(String[] args) {
-        test();
-    }
-
     @Test
-    public static void test() {
+    public void test() {
         StudentArrayDeque<Integer> sad1 = new StudentArrayDeque<>();
         ArrayDequeSolution<Integer> ads1 = new ArrayDequeSolution<>();
         int size = 0;
