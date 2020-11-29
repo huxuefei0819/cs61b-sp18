@@ -49,7 +49,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
         return new ArrayIterator();
     }
 
-    public int plusOne(int index) {
+    private int plusOne(int index) {
         return (index + 1) % capacity;
     }
 
