@@ -21,30 +21,17 @@ public class TestArrayRingBuffer {
             arb.enqueue(i);
         }
         Assert.assertTrue(arb.isFull());
-        Assert.assertEquals(0, (int) arb.peek());
+        int expectValue1 = 0;
+        for (int i : arb) {
+            Assert.assertEquals(expectValue1, i);
+            expectValue1 += 1;
+        }
+
         for (int i = 0; i < 9; i += 1) {
-            arb.dequeue();
+            int removedValue = arb.dequeue();
+            Assert.assertEquals(i, removedValue);
         }
         Assert.assertEquals(9, (int) arb.peek());
-    }
-
-    @Test
-    public void overflowTest() {
-        ArrayRingBuffer<Integer> arb = new ArrayRingBuffer<>(5);
-        for (int i = 0; i < 10; i += 1) {
-            arb.enqueue(i);
-        }
-    }
-
-    @Test
-    public void underflowTest() {
-        ArrayRingBuffer<Integer> arb = new ArrayRingBuffer<>(5);
-        for (int i = 0; i < 5; i += 1) {
-            arb.enqueue(i);
-        }
-        for (int i = 0; i < 10; i += 1) {
-            arb.dequeue();
-        }
     }
 
     /**

@@ -1,6 +1,7 @@
 package synthesizer;
 
-//TODO: Make sure to make this class and all of its methods public
+import java.util.Iterator;
+
 public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
     /* Index for the next dequeue or peek. */
     private int first;            // index for the next dequeue or peek
@@ -20,6 +21,34 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
         this.rb = (T[]) new Object[capacity];
     }
 
+    private class ArrayIterator implements Iterator<T> {
+        private int wizPos;
+        private int wizSize;
+
+        public ArrayIterator() {
+            wizPos = first;
+            wizSize = fillCount;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return wizSize > 0;
+        }
+
+        @Override
+        public T next() {
+            T returnItem = rb[wizPos];
+            wizPos = plusOne(wizPos);
+            wizSize -= 1;
+            return returnItem;
+        }
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new ArrayIterator();
+    }
+
     public int plusOne(int index) {
         return (index + 1) % capacity;
     }
@@ -29,8 +58,9 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
      * throw new RuntimeException("Ring buffer overflow"). Exceptions
      * covered Monday.
      */
+    @Override
     public void enqueue(T x) {
-        if (fillCount == capacity) {
+        if (isFull()) {
             throw new RuntimeException("Ring buffer overflow");
         }
         rb[last] = x;
@@ -43,8 +73,9 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
      * throw new RuntimeException("Ring buffer underflow"). Exceptions
      * covered Monday.
      */
+    @Override
     public T dequeue() {
-        if (fillCount == 0) {
+        if (isEmpty()) {
             throw new RuntimeException("Ring buffer underflow");
         }
         T removedItem = rb[first];
@@ -57,9 +88,12 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
     /**
      * Return oldest item, but don't remove it.
      */
+    @Override
     public T peek() {
+        if (isEmpty()) {
+            throw new RuntimeException("Empty!");
+        }
         return rb[first];
     }
 
-    // TODO: When you get to part 5, implement the needed code to support iteration.
 }
