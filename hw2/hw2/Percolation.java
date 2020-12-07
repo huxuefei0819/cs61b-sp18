@@ -1,6 +1,7 @@
 package hw2;
 
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
+import org.junit.Assert;
 
 public class Percolation {
     private int n;
@@ -49,7 +50,8 @@ public class Percolation {
             if (row == 0) { //first row will connect to top
                 connectTop[current] = true;
                 top = true; //Be cautious first step open（0，0）will ignore some neighbors union
-            } else if (row == n - 1) { //last row will connect to bottom
+            }
+            if (row == n - 1) { //last row will connect to bottom
                 connectBottom[current] = true;
                 bottom = true;
             }
@@ -134,22 +136,33 @@ public class Percolation {
     }
 
 
-//    public static void main(String[] args) {
-//        Percolation p = new Percolation(4);
-//        for (int i = 0; i < 16; i++) {
-//            Assert.assertEquals(false, p.openArray[i]);
-//            Assert.assertEquals(false, p.connectTop[i]);
-//            Assert.assertEquals(false, p.connectBottom[i]);
-//        }
-//        Assert.assertFalse(p.isPercolated);
-//        p.open(1, 1);
-//        p.open(2, 1);
-//        p.open(3, 1);
-//        Assert.assertFalse(p.isFull(1, 1));
-//        p.open(0, 1);
-//        Assert.assertTrue(p.isFull(1, 1));
-//        Assert.assertTrue(p.percolates());
-//        p.open(3, 3);
-//        Assert.assertFalse(p.isFull(3, 3));
-//    }
+    public static void main(String[] args) {
+        Percolation p4 = new Percolation(4);
+        for (int i = 0; i < 16; i++) {
+            Assert.assertEquals(false, p4.openArray[i]);
+            Assert.assertEquals(false, p4.connectTop[i]);
+            Assert.assertEquals(false, p4.connectBottom[i]);
+        }
+        Assert.assertFalse(p4.isPercolated);
+        p4.open(1, 1);
+        p4.open(2, 1);
+        p4.open(3, 1);
+        Assert.assertFalse(p4.isFull(1, 1));
+        p4.open(0, 1);
+        Assert.assertTrue(p4.isFull(1, 1));
+        Assert.assertTrue(p4.percolates());
+        p4.open(3, 3);
+        Assert.assertFalse(p4.isFull(3, 3));
+
+        Percolation p1 = new Percolation(1);
+        p1.open(0, 0);
+        Assert.assertTrue(p1.isFull(0, 0));
+        Assert.assertTrue(p1.percolates());
+
+        Percolation p2 = new Percolation(2);
+        p2.open(1, 1);
+        Assert.assertFalse(p2.isFull(1, 1));
+        p2.open(0,1);
+        Assert.assertTrue(p2.percolates());
+    }
 }
