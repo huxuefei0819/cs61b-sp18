@@ -162,7 +162,7 @@ public class Percolation {
         Percolation p2 = new Percolation(2);
         p2.open(1, 1);
         Assert.assertFalse(p2.isFull(1, 1));
-        p2.open(0,1);
+        p2.open(0, 1);
         Assert.assertTrue(p2.percolates());
     }
 }
