@@ -18,10 +18,10 @@ public class PercolationStats {
         this.pf = pf;
         this.N = N;
         this.T = T;
-        udpateThresholdArray();
+        updateThresholdArray();
     }
 
-    private double runOnePerculation() {
+    private double runOnePercolation() {
         Percolation p = pf.make(N);
         while (!p.percolates()) {
             int row = StdRandom.uniform(N);
@@ -31,10 +31,10 @@ public class PercolationStats {
         return (double) p.numberOfOpenSites() / (N * N);
     }
 
-    private void udpateThresholdArray() {
+    private void updateThresholdArray() {
         threshold = new double[T];
         for (int i = 0; i < T; i++) {
-            threshold[i] = runOnePerculation();
+            threshold[i] = runOnePercolation();
         }
     }
 
