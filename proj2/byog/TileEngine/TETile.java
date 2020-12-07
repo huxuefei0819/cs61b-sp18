@@ -64,7 +64,7 @@ public class TETile {
     /**
      * Creates a copy of TETile t, except with given textColor.
      * @param t tile to copy
-     * @param textColor foreground color for tile copy
+     *
      */
     public TETile(TETile t, Color textColor) {
         this(t.character, textColor, t.backgroundColor, t.description, t.filepath);

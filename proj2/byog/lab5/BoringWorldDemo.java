@@ -4,6 +4,8 @@ import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
 import byog.TileEngine.Tileset;
 
+import java.awt.*;
+
 /**
  *  Draws a world that is mostly empty except for a small region.
  */

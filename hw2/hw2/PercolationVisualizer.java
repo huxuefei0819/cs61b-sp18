@@ -1,7 +1,7 @@
 /******************************************************************************
  *  Compilation:  javac PercolationVisualizer.java
  *  Execution:    java PercolationVisualizer input.txt
- *  Dependencies: Percolation.java
+ *  Dependencies: Percolation1.java
  *
  *  This program takes the name of a file as a command-line argument.
  *  From that file, it
@@ -16,13 +16,14 @@
  *
  ******************************************************************************/
 package hw2;
+
 import java.awt.Font;
 
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdDraw;
 
 public class PercolationVisualizer {
-/*
+
     // delay in miliseconds (controls animation speed)
     private static final int DELAY = 100;
 
@@ -83,5 +84,5 @@ public class PercolationVisualizer {
     public static void main(String[] args) {
         String filename = args[0];
         simulateFromFile(filename);
-    }*/
+    }
 }
