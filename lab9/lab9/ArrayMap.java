@@ -30,6 +30,14 @@ public class ArrayMap<K, V> implements Map61B<K, V> {
         return -1;
     }
 
+    public K[] getKeys() {
+        return keys;
+    }
+
+    public V[] getValues() {
+        return values;
+    }
+
     @Override
     public boolean containsKey(K key) {
         int index = keyIndex(key);
