@@ -1,6 +1,5 @@
 package hw3.hash;
 
-import edu.princeton.cs.introcs.StdRandom;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
