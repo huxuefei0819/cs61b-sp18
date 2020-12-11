@@ -129,6 +129,9 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         validateSinkSwimArg(index);
 
         int parentIndex = parentIndex(index);
+        if(!inBounds(parentIndex)){
+            return;
+        }
         while (index > 1 && index == min(index, parentIndex)) {
             swap(index, parentIndex);
             swim(parentIndex);
@@ -144,6 +147,9 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
 
         int leftIndex = leftIndex(index);
         int rightIndex = rightIndex(index);
+        if(!inBounds(leftIndex)){
+            return;
+        }
         if (rightIndex > size && leftIndex == min(index, leftIndex)) {
             //no right child, left child is smaller, need to sink down current index node
             swap(index, leftIndex);
@@ -191,6 +197,9 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     @Override
     public T removeMin() {
+        if(size<1){
+            return null;
+        }
         swap(1, size);
         T val = contents[size].item();
         contents[size] = null;
