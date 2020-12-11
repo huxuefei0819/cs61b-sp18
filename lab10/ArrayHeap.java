@@ -129,7 +129,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         validateSinkSwimArg(index);
 
         int parentIndex = parentIndex(index);
-        if(!inBounds(parentIndex)){
+        if (!inBounds(parentIndex)) {
             return;
         }
         while (index > 1 && index == min(index, parentIndex)) {
@@ -147,7 +147,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
 
         int leftIndex = leftIndex(index);
         int rightIndex = rightIndex(index);
-        if(!inBounds(leftIndex)){
+        if (!inBounds(leftIndex)) {
             return;
         }
         if (rightIndex > size && leftIndex == min(index, leftIndex)) {
@@ -197,7 +197,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     @Override
     public T removeMin() {
-        if(size<1){
+        if (size < 1) {
             return null;
         }
         swap(1, size);
