@@ -45,11 +45,11 @@ public class MazeBreadthFirstPaths extends MazeExplorer {
                     edgeTo[w] = v;
                     distTo[w] = distTo[v] + 1;
                     announce();
-                }
-                if (w == t) {
-                    return;
-                } else {
-                    fringe.add(w);
+                    if (w == t) {
+                        return;
+                    } else {
+                        fringe.add(w);
+                    }
                 }
             }
         }
