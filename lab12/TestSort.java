@@ -1,5 +1,7 @@
 import edu.princeton.cs.algs4.Queue;
+import org.junit.Assert;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class TestSort {
@@ -58,8 +60,10 @@ public class TestSort {
         for (int i = 0; i < 100000; i += 1) {
             queue.enqueue(i);
         }
+        Assert.assertEquals(100000, queue.size());
 
         Queue<Integer> sortedQueue = MergeSort.mergeSort(queue);
+        Assert.assertEquals(100000, queue.size());
         for (int i = 0; i < queue.size(); i += 1) {
             assertEquals(queue.dequeue(), sortedQueue.dequeue());
         }
@@ -71,8 +75,10 @@ public class TestSort {
         for (int i = 0; i < 100000; i += 1) {
             queue.enqueue(i);
         }
+        Assert.assertEquals(100000, queue.size());
 
         Queue<Integer> sortedQueue = QuickSort.quickSort(queue);
+        Assert.assertEquals(100000, queue.size());
         for (int i = 0; i < queue.size(); i += 1) {
             assertEquals(queue.dequeue(), sortedQueue.dequeue());
         }

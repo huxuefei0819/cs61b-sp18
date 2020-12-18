@@ -70,12 +70,16 @@ public class QuickSort {
         if (items.size() <= 1) {
             return items;
         }
+        Queue<Item> copy = new Queue<>();
+        for (Item item : items) {
+            copy.enqueue(item);
+        }
 
-        Item pivot = getRandomItem(items);
+        Item pivot = getRandomItem(copy);
         Queue<Item> less = new Queue<>();
         Queue<Item> equal = new Queue<>();
         Queue<Item> greater = new Queue<>();
-        partition(items, pivot, less, equal, greater);
+        partition(copy, pivot, less, equal, greater);
 
         Queue<Item> sortedLess = quickSort(less);
         Queue<Item> sortedGreater = quickSort(greater);
@@ -94,8 +98,9 @@ public class QuickSort {
         students.enqueue("Lisa");
 
         System.out.println(students.toString());
-
+        System.out.println(students.size());
         System.out.println(quickSort(students).toString());
+        System.out.println(students.size());
     }
 
 }

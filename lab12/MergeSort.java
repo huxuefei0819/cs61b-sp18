@@ -81,7 +81,6 @@ public class MergeSort {
             copy.enqueue(i);
         }
         Queue<Queue<Item>> sourceQueues = MergeSort.makeSingleItemQueues(copy);
-        System.out.println("souceQueue size = " + sourceQueues.size());
         while (sourceQueues.size() > 1) {
             Queue<Item> q1 = sourceQueues.dequeue();
             Queue<Item> q2 = sourceQueues.dequeue();
