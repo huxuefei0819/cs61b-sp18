@@ -37,6 +37,7 @@ public class MazeBreadthFirstPaths extends MazeExplorer {
         }
 
         fringe.add(s);
+        marked[s]=true;
         while (!fringe.isEmpty()) {
             int v = fringe.poll();
             for (int w : maze.adj(v)) {
