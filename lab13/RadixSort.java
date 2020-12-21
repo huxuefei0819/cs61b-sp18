@@ -80,4 +80,8 @@ public class RadixSort {
         return;
     }
 
+    public static void main(String[] args) {
+
+    }
+
 }

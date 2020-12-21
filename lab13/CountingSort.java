@@ -56,15 +56,7 @@ public class CountingSort {
         return sorted;
     }
 
-    /**
-     * Counting sort on the given int array, must work even with negative numbers.
-     * Note, this code does not need to work for ranges of numbers greater
-     * than 2 billion.
-     * Does not touch original array (non-destructive method).
-     *
-     * @param arr int array that will be sorted
-     */
-    public static int[] betterCountingSort(int[] arr) {
+    public static int[] notbetterCountingSort(int[] arr) {
         // find min & max
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
@@ -109,4 +101,54 @@ public class CountingSort {
 
         return sorted;
     }
+
+    /**
+     * Counting sort on the given int array, must work even with negative numbers.
+     * Note, this code does not need to work for ranges of numbers greater
+     * than 2 billion.
+     * Does not touch original array (non-destructive method).
+     *
+     * @param toSort int array that will be sorted
+     */
+    public static int[] betterCountingSort(int[] toSort) {
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+
+        for (int num : toSort) {
+            if (num < min) {
+                min = num;
+            }
+            if (num > max) {
+                max = num;
+            }
+        }
+        int count[] = new int[max - min + 1];
+        for (int num : toSort) {
+            int arrayPosition = num - min;
+            count[arrayPosition]++;
+        }
+
+        int[] startingIndices = new int[count.length];
+        int startingIndex = 0;
+        for (int i = 0; i < startingIndices.length; i++) {
+            startingIndices[i] = startingIndex;
+            startingIndex = startingIndex + count[i];
+        }
+        int[] sorted = new int[toSort.length];
+        for (int num : toSort) {
+            int arrayPosition = num - min;
+            sorted[startingIndices[arrayPosition]] = num;
+            startingIndices[arrayPosition]++;
+        }
+        return sorted;
+    }
+
+    public static void main(String[] args) {
+        int[] someNegative = {-99, -95, -4, 2, 1, -2, 5, 3, 0, -2, 3, 1, 1};
+        int[] sortedSomeNegative = CountingSort.betterCountingSort(someNegative);
+        for (int i = 0; i < sortedSomeNegative.length; i++) {
+            System.out.print(sortedSomeNegative[i] + ",");
+        }
+    }
+
 }
