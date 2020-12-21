@@ -28,6 +28,7 @@ public class RadixSort {
         String[] sortedAsciis = new String[asciis.length];
         //System.arraycopy(asciis, 0, sortedAsciis, 0, asciis.length);
 
+        //pad string on the right with empty values
         for (int i = 0; i < asciis.length; i++) {
             if (asciis[i].length() < max) {
                 int underscoreNum = max - asciis[i].length();
@@ -45,7 +46,7 @@ public class RadixSort {
         for (int d = 0; d < max; d++) {
             sortHelperLSD(sortedAsciis, d);
         }
-
+        //trim empty values
         for (int i = 0; i < sortedAsciis.length; i++) {
             sortedAsciis[i] = sortedAsciis[i].trim();
         }
@@ -66,8 +67,6 @@ public class RadixSort {
 
         for (int i = 0; i < asciis.length; i++) {
             int asciisToCompare; // convert from string to char(0-255) to verify
-            System.out.println("asciis[i].length()=" + asciis[i].length());
-            System.out.println("index=" + index);
             if (index >= asciis[i].length()) {
                 asciisToCompare = 0;
             } else {
