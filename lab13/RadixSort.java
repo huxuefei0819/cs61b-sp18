@@ -1,8 +1,9 @@
+import edu.princeton.cs.algs4.Queue;
+
 /**
  * Class for doing Radix sort
  *
  * @author Akhil Batra, Alexander Hwang
- *
  */
 public class RadixSort {
     /**
@@ -12,23 +13,57 @@ public class RadixSort {
      * The Strings can be variable length (all Strings are not constrained to 1 length)
      *
      * @param asciis String[] that needs to be sorted
-     *
      * @return String[] the sorted array
      */
     public static String[] sort(String[] asciis) {
-        // TODO: Implement LSD Sort
-        return null;
+        // find max length of all strings in given array
+        int max = Integer.MIN_VALUE;
+        for (String s : asciis) {
+            max = max > s.length() ? max : s.length();
+        }
+
+        String[] sortedAsciis = new String[asciis.length];
+        System.arraycopy(asciis, 0, sortedAsciis, 0, asciis.length);
+
+        for (int d = 0; d < max; d++) {
+            sortHelperLSD(sortedAsciis, d);
+        }
+
+        return sortedAsciis;
     }
 
     /**
      * LSD helper method that performs a destructive counting sort the array of
      * Strings based off characters at a specific index.
+     *
      * @param asciis Input array of Strings
-     * @param index The position to sort the Strings on.
+     * @param index  The position to sort the Strings on.
      */
     private static void sortHelperLSD(String[] asciis, int index) {
-        // Optional LSD helper method for required LSD radix sort
-        return;
+        Queue<String>[] charToStringTable = new Queue[256]; // record every element in asciis array by certain index
+        int[] charAsciis = new int[asciis.length];
+
+        for (int i = 0; i < asciis.length; i++) {
+            int asciisToCompare; // convert from string to char(0-255) to verify
+            System.out.println("asciis[i].length()=" + asciis[i].length());
+            System.out.println("index=" + index);
+            if (index >= asciis[i].length()) {
+                asciisToCompare = 0;
+            } else {
+                asciisToCompare = (int) asciis[i].charAt(asciis[i].length() - index - 1);
+            }
+            if (charToStringTable[asciisToCompare] == null) {
+                charToStringTable[asciisToCompare] = new Queue<>();
+            }
+            charToStringTable[asciisToCompare].enqueue(asciis[i]);
+            charAsciis[i] = asciisToCompare;
+        }
+
+        charAsciis = CountingSort.betterCountingSort(charAsciis);
+        for (int i = 0; i < asciis.length; i++) {
+            asciis[i] = charToStringTable[charAsciis[i]].dequeue();
+        }
+
     }
 
     /**
@@ -36,13 +71,13 @@ public class RadixSort {
      * Destructive method that changes the passed in array, asciis.
      *
      * @param asciis String[] to be sorted
-     * @param start int for where to start sorting in this method (includes String at start)
-     * @param end int for where to end sorting in this method (does not include String at end)
-     * @param index the index of the character the method is currently sorting on
-     *
+     * @param start  int for where to start sorting in this method (includes String at start)
+     * @param end    int for where to end sorting in this method (does not include String at end)
+     * @param index  the index of the character the method is currently sorting on
      **/
     private static void sortHelperMSD(String[] asciis, int start, int end, int index) {
         // Optional MSD helper method for optional MSD radix sort
         return;
     }
+
 }

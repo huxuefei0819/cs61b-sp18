@@ -1,4 +1,5 @@
 import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 public class CountingSortTester {
@@ -25,6 +26,9 @@ public class CountingSortTester {
     @Test
     public void testNaiveWithNonNegative() {
         int[] sortedNonNegative = CountingSort.naiveCountingSort(nonNegative);
+        for (int i = 0; i < sortedNonNegative.length; i++) {
+            System.out.print(sortedNonNegative[i] + ",");
+        }
         assertIsSorted(sortedNonNegative);
     }
 
@@ -44,15 +48,20 @@ public class CountingSortTester {
     @Test
     public void testBetterWithNonNegative() {
         int[] sortedNonNegative = CountingSort.betterCountingSort(nonNegative);
+        for (int i = 0; i < sortedNonNegative.length; i++) {
+            System.out.print(sortedNonNegative[i] + ",");
+        }
         assertIsSorted(sortedNonNegative);
     }
 
     @Test
     public void testBetterWithSomeNegative() {
         int[] sortedSomeNegative = CountingSort.betterCountingSort(someNegative);
+        for (int i = 0; i < sortedSomeNegative.length; i++) {
+            System.out.print(sortedSomeNegative[i] + ",");
+        }
         assertIsSorted(sortedSomeNegative);
     }
-
 
     public static void main(String[] args) {
         jh61b.junit.TestRunner.runTests(CountingSortTester.class);
