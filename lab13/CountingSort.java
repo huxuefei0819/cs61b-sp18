@@ -143,12 +143,12 @@ public class CountingSort {
         return sorted;
     }
 
-    public static void main(String[] args) {
-        int[] someNegative = {-99, -95, -4, 2, 1, -2, 5, 3, 0, -2, 3, 1, 1};
-        int[] sortedSomeNegative = CountingSort.betterCountingSort(someNegative);
-        for (int i = 0; i < sortedSomeNegative.length; i++) {
-            System.out.print(sortedSomeNegative[i] + ",");
-        }
-    }
+//    public static void main(String[] args) {
+//        int[] someNegative = {-99, -95, -4, 2, 1, -2, 5, 3, 0, -2, 3, 1, 1};
+//        int[] sortedSomeNegative = CountingSort.betterCountingSort(someNegative);
+//        for (int i = 0; i < sortedSomeNegative.length; i++) {
+//            System.out.print(sortedSomeNegative[i] + ",");
+//        }
+//    }
 
 }
