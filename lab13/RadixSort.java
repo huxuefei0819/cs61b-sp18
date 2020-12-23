@@ -33,7 +33,6 @@ public class RadixSort {
             if (asciis[i].length() < max) {
                 int underscoreNum = max - asciis[i].length();
                 sortedAsciis[i] = asciis[i] + IntStream.range(0, underscoreNum).mapToObj(j -> " ").collect(Collectors.joining(""));
-                ;
             } else {
                 sortedAsciis[i] = asciis[i];
             }
