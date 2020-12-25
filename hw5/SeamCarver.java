@@ -1,5 +1,7 @@
 import edu.princeton.cs.algs4.Picture;
 
+import java.awt.Color;
+
 public class SeamCarver {
     private Picture p;
     private double[][] energyMatrix;
@@ -149,11 +151,11 @@ public class SeamCarver {
         int[] verticalSeam = new int[height()];
         double[][] minimumCostMatrix = getMinimumCostMatrix();
 
-        for (int i = 0; i < width(); i++) {
-            for (int j = 0; j < height(); j++) {
-                //System.out.println("minimumCostMatrix[" + i + "][" + j + "]=" + minimumCostMatrix[i][j]);
-            }
-        }
+//        for (int i = 0; i < width(); i++) {
+//            for (int j = 0; j < height(); j++) {
+//                System.out.println("minimumCostMatrix[" + i + "][" + j + "]=" + minimumCostMatrix[i][j]);
+//            }
+//        }
 
         int colOfEndMinimumCostPath = 0;
         for (int i = 0; i < width(); i++) {
@@ -182,11 +184,28 @@ public class SeamCarver {
         Picture newP = new Picture(newWidth, newHeight);
         for (int col = 0; col < newWidth; col++) {
             for (int row = 0; row < newHeight; row++) {
-                newP.setRGB(col, row, p.getRGB(row, col));
+                Color color = p.get(newP.height() - 1 - row, col);
+                newP.set(col, row, color);
             }
         }
         SeamCarver sc = new SeamCarver(newP);
-        return sc.findVerticalSeam();
+        int[] seam = sc.findVerticalSeam();
+
+        reverseIntArray(seam);
+        return seam;
+    }
+
+    private void reverseIntArray(int[] array) {
+        int left = 0;
+        int right = array.length - 1;
+
+        while (left < right) {
+            int temp = array[left];
+            array[left] = array[right];
+            array[right] = temp;
+            left++;
+            right--;
+        }
     }
 
     public void removeHorizontalSeam(int[] seam) {
@@ -208,4 +227,5 @@ public class SeamCarver {
         p = SeamRemover.removeVerticalSeam(p, seam);
         calculateEnergyMatrix();
     }
+
 }
