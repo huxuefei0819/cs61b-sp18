@@ -16,13 +16,12 @@ public class SeamCarver {
         for (int i = 0; i < width(); i++) {
             for (int j = 0; j < height(); j++) {
                 energyMatrix[i][j] = energy(i, j);
-                //System.out.println("energyMatrix[" + i + "][" + j + "]=" + energyMatrix[i][j]);
             }
         }
     }
 
     public Picture picture() {
-        return p;
+        return new Picture(p);
     }
 
     public int width() {
@@ -150,12 +149,6 @@ public class SeamCarver {
     public int[] findVerticalSeam() {
         int[] verticalSeam = new int[height()];
         double[][] minimumCostMatrix = getMinimumCostMatrix();
-
-//        for (int i = 0; i < width(); i++) {
-//            for (int j = 0; j < height(); j++) {
-//                System.out.println("minimumCostMatrix[" + i + "][" + j + "]=" + minimumCostMatrix[i][j]);
-//            }
-//        }
 
         int colOfEndMinimumCostPath = 0;
         for (int i = 0; i < width(); i++) {
